@@ -217,6 +217,10 @@ from an example config file which lists all available options::
 
     # Use SREG nickname as authname (default false)
     #use_nickname_as_authname = false
+    
+    # Use SREG email as authname (default false) -- overrides
+    # use_nickname_as_authname if both are set to true.
+    #use_email_as_authname = false
 
     # If you want username to be written as
     # "username_in_remote_system <openid_url>" use:

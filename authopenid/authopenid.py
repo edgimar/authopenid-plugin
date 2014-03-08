@@ -141,6 +141,9 @@ class AuthOpenIdPlugin(Component):
     use_nickname_as_authname = BoolOption('openid', 'use_nickname_as_authname', False,
             """ Whether the nickname as retrieved by SReg is used as username""")
 
+    use_email_as_authname = BoolOption('openid', 'use_email_as_authname', False,
+            """ Whether the email-address as retrieved by SReg is used as username.  When enabled, this option overrides the use_nickname_as_authname option.""")
+
     trust_authname = BoolOption('openid', 'trust_authname', False,
             """WARNING: Only enable this if you know what this mean!
             This could make identity theft very easy if you do not control the OpenID provider!
@@ -716,6 +719,8 @@ class AuthOpenIdPlugin(Component):
                     # New identity URL -> create new authname/user.
                     if self.check_list and self.check_list_username:
                         authname = cl_username
+                    elif self.use_email_as_authname and email:
+                        authname = email
                     elif self.use_nickname_as_authname and nickname:
                         authname = nickname
                     elif session_attr.get('name'):
