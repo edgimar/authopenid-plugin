@@ -756,18 +756,19 @@ class AuthOpenIdPlugin(Component):
                             if (no_session_exists and no_permissions_defined):
                                 # name is free :-)
                                 break
-                        # Set attributes for new user on the
-                        # current anonymous session.  It will be promoted to
-                        # the new authenticated session on the next request
-                        # (by Session.__init__).
-                        #
-                        # NB: avoid dict.update here to ensure that
-                        # DetachedSession.__getitem__ gets a chance to
-                        # normalize values
-                        for name, value in session_attr.items():
-                            req.session[name] = value
-                        self.env.log.info("Created new user '%s' for "
-                            "OpenID identifier %s", authname, info.identity_url)
+
+                    # Set attributes for new user on the
+                    # current anonymous session.  It will be promoted to
+                    # the new authenticated session on the next request
+                    # (by Session.__init__).
+                    #
+                    # NB: avoid dict.update here to ensure that
+                    # DetachedSession.__getitem__ gets a chance to
+                    # normalize values
+                    for name, value in session_attr.items():
+                        req.session[name] = value
+                    self.env.log.info("Created new user '%s' for "
+                        "OpenID identifier %s", authname, info.identity_url)
 
                 req.authname = authname
 
